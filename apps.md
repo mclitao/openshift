@@ -1,4 +1,6 @@
 
+#### 一千零一种产品编译发布手法
+>http://github.com/lbroudoux/openshift-tasks
 
 
 #### nexus2 私有仓库部署
