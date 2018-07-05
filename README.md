@@ -69,6 +69,11 @@ https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/
 
 ```
 
+## 导出模板 
+ oc export all -o yaml --as-template=kong-template > ./kong-template.yaml
+## 调整linux磁盘空间
+https://themacwrangler.wordpress.com/2015/01/16/re-sizing-partitions-in-centos7/
+
 ## 无法连接docker的问题
 ```
 vim /etc/docker/daemon.json
@@ -78,6 +83,22 @@ vim /etc/docker/daemon.json
         "https://docker.mirrors.ustc.edu.cn"
     ]}
 ```
+
+## jenkins
+https://github.com/siamaksade/cart-service/blob/jenkinsfiles/Jenkinsfile
+https://blog.openshift.com/improving-build-time-java-builds-openshift/
+https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/
+### example of jenkins
+https://github.com/openshift/origin/tree/master/examples/jenkins/pipeline https://github.com/OpenShiftDemos/openshift-cd-demo
+### 官方给出的配置pipeline的方法
+https://docs.openshift.org/latest/install_config/configuring_pipeline_execution.html
+## jenkins pipeline example
+```batch
+ oc new-app https://github.com/minikiller/mapit-spring.git --strategy=pipeline
+```
+
+
+
 
 ## 安装dnsmasq
 
@@ -90,3 +111,7 @@ server=/cluster.local/127.0.0.1
 address=/.ipaas.seanzhau.com/192.168.100.101
 address=/www.ipaas.seanzhau.com/192.168.100.101
 ```
+
+
+
+
