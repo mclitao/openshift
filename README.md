@@ -85,14 +85,15 @@ vim /etc/docker/daemon.json
 ```
 
 ## jenkins
-https://github.com/siamaksade/cart-service/blob/jenkinsfiles/Jenkinsfile
+使用jenkins调用maven操作的方法文件：https://github.com/siamaksade/cart-service/blob/jenkinsfiles/Jenkinsfile
+CICDdemo:https://github.com/siamaksade/openshift-cd-demo
 https://blog.openshift.com/improving-build-time-java-builds-openshift/
 https://blog.openshift.com/decrease-maven-build-times-openshift-pipelines-using-persistent-volume-claim/
 ### example of jenkins
 https://github.com/openshift/origin/tree/master/examples/jenkins/pipeline https://github.com/OpenShiftDemos/openshift-cd-demo
 ### 官方给出的配置pipeline的方法
 https://docs.openshift.org/latest/install_config/configuring_pipeline_execution.html
-## jenkins pipeline example
+## jenkins pipeline example  快速拉起一个jenkins实例
 ```batch
  oc new-app https://github.com/minikiller/mapit-spring.git --strategy=pipeline
 ```

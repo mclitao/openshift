@@ -35,7 +35,9 @@ pipeline for kalix project
    oc new-app sameersbn/postgresql -e 'PG_PASSWORD=1234' -e 'DB_NAME=kalix'
 
 
-
+### jboos EAP产品Stream
+> oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4
+ .12/eap/eap70-image-stream.json -n openshift
 
 
 
