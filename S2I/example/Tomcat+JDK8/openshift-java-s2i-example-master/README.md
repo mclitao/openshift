@@ -24,7 +24,7 @@ touch .s2i/bin/usage.sh
 
 #### assemble.sh  
 > This file is used dynamically adding artifacts into base image and creating a app image as a result.   
-
+> 这个脚本负责打包编译，负责将外边的代码拷贝发布到目标运行目录webapps
 ```sh
 cp -Rf /tmp/src/. $CATALINA_HOME/webapps
 echo "WAR's copied"
@@ -32,31 +32,33 @@ echo "WAR's copied"
 
 #### run.sh
 > This file is used for mentioning startup script.   
-
+> 这个脚本负责运行assemble.sh编译好的应用
 ```sh
 ${CATALINA_HOME}/bin/catalina.sh run
 ```
 
 ### Create builder image
 > tomcat8-jdk8  is my future builder image name   
-
+> 编译镜像
 ```sh
 docker build -t tomcat8-jdk8 .
 ```
 
 ### Test builder image by deploying war  (Optional)
 >  on base image tomcat8-jdk8 deploy the war (contents) that is present in test/test-app and make a app image called (tomcat8-jdk8-app)   
-
+>  在基础镜像tomcat-jdk8上发布war包并开始合并2次编译镜像这里就是s2i核心部分
 ```sh
 s2i build test/test-app tomcat8-jdk8 tomcat8-jdk8-app
 ```
 
 ### Test the app image
+> 你可以手动运行编译好的镜像并进入里面查看一下是否拥有上边的每个功能目录以及.s2i目录下的程序文件
 ```sh
 docker run -d  -p 8080:8080  tomcat8-jdk8-app 
 ```
 
 ## Using the template provided in this repo.
+> 直接使用Openshif的build s2i功能编译 不向上面一步一步手动编译那样麻烦这里是自动完成的
 ```sh
 oc import-image --from=openshift/base-centos7 openshift/base-centos7 -n openshift --confirm
 oc new-build --strategy=docker --name=tomcat8-jdk8 https://github.com/debianmaster/openshift-s2i-example.git -n openshift
