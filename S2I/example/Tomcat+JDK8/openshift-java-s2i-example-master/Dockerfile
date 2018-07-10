@@ -1,5 +1,5 @@
 FROM openshift/base-centos7
-MAINTAINER Chakradhar Rao Jonagam (9chakri@gmail.com)
+MAINTAINER litao (1170995926@qq.com)
 
 ENV BUILDER_VERSION 1.1
 
