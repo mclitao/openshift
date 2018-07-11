@@ -9,12 +9,14 @@
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository where you have the binaries",
       "description": "WAR files git repo url",
+      "required": true,
       "value": "https://github.com/debianmaster/sample-binaries.git"
     },
     {
       "name": "APP_NAME",
       "displayName": "Application Name",
-      "description": "Application name",
+      "description": "The name assigned to all of the application objects defined in this template.",
+      "required": true,
       "value": "tomcat8-jdk8-war-app"
     }
   ],
