@@ -8,7 +8,7 @@
     {
       "name": "SOURCE_REPOSITORY_URL",
       "displayName": "Git Repository where you have the binaries",
-      "description": "WAR files git repo url",
+      "description": "放入包含ROOT.war文件的git地址",
       "required": true,
       "value": "https://github.com/debianmaster/sample-binaries.git"
     },
@@ -18,6 +18,13 @@
       "description": "The name assigned to all of the application objects defined in this template.",
       "required": true,
       "value": "tomcat8-jdk8-war-app"
+    },
+    {
+      "name": "BaseImageStream",
+      "displayName": "Base ImageStream:version",
+      "description": "编译代码的基础容器盒子",
+      "required": true,
+      "value": "tomcat8-jdk8"
     }
   ],
   "objects": [
@@ -85,7 +92,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "name": "tomcat8-jdk8:latest",
+              "name": "{$BaseImageStream}:latest",
               "namespace": "openshift"
             }
           },
