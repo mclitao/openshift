@@ -22,9 +22,9 @@
     {
       "name": "BaseImageStream",
       "displayName": "Base ImageStream:version",
-      "description": "编译代码的基础容器盒子",
+      "description": "编译代码的基础容器盒子:版本",
       "required": true,
-      "value": "tomcat8-jdk8"
+      "value": "tomcat8-jdk8:latest"
     }
   ],
   "objects": [
@@ -92,7 +92,7 @@
           "sourceStrategy": {
             "from": {
               "kind": "ImageStreamTag",
-              "name": "{$BaseImageStream}:latest",
+              "name": "${BaseImageStream}",
               "namespace": "openshift"
             }
           },
