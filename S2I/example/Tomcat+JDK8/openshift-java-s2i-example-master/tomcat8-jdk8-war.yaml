@@ -11,7 +11,10 @@ metadata:
   annotations:
     description: 给他包含ROOT.war的git地址就可以编译运行了.
     iconClass: icon-tomcat
-    tags: base-centos7,jdk8,tomcate8
+    tags: builder,java,base-centos7,jdk8,tomcate8,jee
+    openshift.io/display-name: Tomcat 8.5.24
+    openshift.io/provider-display-name: 'centos7 + jdk + tomat + war'
+    version: 8.5.24
   name: tomcat8-jdk8
 objects:
 - apiVersion: v1
