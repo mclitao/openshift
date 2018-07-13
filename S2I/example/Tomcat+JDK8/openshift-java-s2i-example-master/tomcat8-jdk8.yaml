@@ -13,7 +13,7 @@ metadata:
     iconClass: icon-tomcat
     tags: builder,java,base-centos7,jdk8,tomcate8,jee
     openshift.io/display-name: Tomcat 8.032 + Jdk 1.8.0
-    openshift.io/provider-display-name: 'centos7 + jdk1.8.0 + tomat8.032 + war'
+    openshift.io/provider-display-name: 'centos7 + jdk + tomat + war'
     version: 8.032
   name: tomcat8-jdk8
 objects:
