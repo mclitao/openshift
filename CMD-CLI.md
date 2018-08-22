@@ -12,8 +12,9 @@ https://172.99.0.88:8443
 ```
 ######登录用户是谁,以及令牌token
 ```batch
+#  oc login -u developer
 # oc whoami 
-# oc whoami --token
+# oc whoami --show-token
 ```
 ######使用管理员登录仓库
 ```batch
@@ -45,6 +46,15 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ######还原密码  查看一个密码配置文件中的base64加密前的原密码
 ```batch
 # oc get secret --namespace myapp virtuous-echidna-redis -o jsonpath="{.data.redis-password}" | base64 --decode
+# oc get secret webconsole-serving-cert --namespace openshift-web-console -o jsonpath="{.data.tls\.key}" | base64
+  以输出json
+# oc get secret webconsole-serving-cert --namespace openshift-web-console -o json
+  以输出yaml
+# oc get secret webconsole-serving-cert --namespace openshift-web-console -o yaml 
+  base64加密
+# echo "要加密的原文" | base64
+  base64解密
+# echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d
 ```
 ######将secrets的配置内容保存成文件
 ```batch
@@ -61,15 +71,21 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```
 
 #项目操作命令
-######新建 删除 进入 项目 | 停止项目 | 开启项目
+######新建 删除 进入 项目 | 停止项目 | 开启项目 |3种部署代码的方法
 ```batch
 # oc new-project <项目名>
 # oc delete project <项目名>
 # oc project <项目名>
- --------------将一个应用的实例全部关闭掉------------- 
+ --------------将一个应用的实例全部关闭掉------------------- 
 # oc scale --replicas=0 dc <dcname>
- --------------将关闭的应用项目打开------------------- 
+ --------------将关闭的应用项目打开------------------------- 
 # oc scale --replicas=1 dc <dcname>
+ -------------镜像 + 代码 部署------------------------------
+# oc new-app 厂家/镜像语言平台~https://github.com/openshift/ruby-hello-world.git
+--------------镜像Ruby-20-centos7:latest + 目录的源代码-----
+# oc new-app openshift/ruby-20-centos7:latest~/home/user/code/my-ruby-app
+--------------镜像 + ENV参数--------------------------------
+# oc new-app openshift/postgresql-92-centos7 --env-file=postgresql.env
 ```
 ######暂停 | 恢复 项目
 ```batch
@@ -128,6 +144,13 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
         --period-seconds 20 \
         --get-url=http://:9000/minio/health/live
 ```
+######获取limits | Quotas 等资源情况以及修改调整
+```batch
+# oc get resourcequota
+# oc get limits
+# oc describe resourcequota <名>
+# oc describe limits <名>
+```
 ######获取具体项目内容配置名字
 ```batch
  ----------------dc,rs,rs,po,sv,route等名字------------ 
@@ -167,6 +190,8 @@ oc get all -o name --selector app=demo2
 # oc set env dc/jenkins  --list     
  使用命令修改dc部署环境中的使用镜像名字
 # oc patch dc nginx -p '{"spec":{"template":{"spec":{"containers":[{"name":"nginx","image":"harbor.apps.example.com/public/nginx:1.14"}]}}}}'
+ 使用patch修正参数来向oauthclient/openshift-web-console -p参数增加一个数据
+# oc patch oauthclient/openshift-web-console -p '{"redirectURIs":["https://localhost:9000"]}'
 ```
 ######手动命令暴露Pod一个新的port端口 
 ```batch
