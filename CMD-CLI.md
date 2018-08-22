@@ -81,8 +81,23 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc set resources dc/sonar --limits=memory=2Gi --requests=memory=1Gi
 # oc set resources dc/minio --limits=cpu=4,memory=8Gi --requests=cpu=100m,memory=512Mi
 ```
-######使用挂载pvc存储
+######使用挂载pvc存储 | 移除pvc存储
 ```batch
+# 建立100G大小的pvc名字为minio-pvc-data 绑定到pod的minio-volume-1下对应是容器里面的/data/目录
+# oc volumes dc/minio --add \
+    --name 'minio-volume-1' \
+    --type 'pvc' \
+    --mount-path '/data/' \
+    --claim-name 'minio-pvc-data' \
+    --claim-size '100G' \
+    --overwrite      
+# 从写挂载pvc到挂载点minio-volume-1上
+# oc volumes  --add dc/minio --name=minio-volume-1 -t pvc --claim-name=minio-pvc-data --overwrite
+
+# 移除minio-volume-1的存储挂载点
+# oc set volumes dc/minio --remove --name=minio-volume-1
+# 添加现有的pvc到对应的挂载位置    
+# oc set volumes dc/minio --add --name=minio-data --mount-path=/data/ --type persistentVolumeClaim --claim-name=minio-pvc-data
 
 ```
 ######容器健康检查 liveness活性探针  readiness状态探针
