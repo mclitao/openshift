@@ -2,6 +2,8 @@
 #### 一千零一种产品编译发布手法
 >http://github.com/lbroudoux/openshift-tasks
 
+#### 建立一个docker仓库实例
+> oc adm registry
 
 #### nexus2 私有仓库部署
 ```batch
@@ -36,8 +38,7 @@ pipeline for kalix project
 
 
 ### jboos EAP产品Stream
-> oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4
- .12/eap/eap70-image-stream.json -n openshift
+> oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/ose-v1.4.12/eap/eap70-image-stream.json -n openshift
 
 
 
