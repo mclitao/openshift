@@ -50,11 +50,10 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```batch
 # oc secrets new <配置名>  datasources.env
 ```
- 
-
-######
+######给普通用户编译镜像的权利
 ```batch
-
+# oadm policy add-role-to-user system:registry user
+# oadm policy add-role-to-user system:image-builder user
 ```
 ######
 ```batch
@@ -71,6 +70,48 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc scale --replicas=0 dc <dcname>
  --------------将关闭的应用项目打开------------------- 
 # oc scale --replicas=1 dc <dcname>
+```
+######暂停 | 恢复 项目
+```batch
+# oc rollout pause dc sonar
+# oc rollout resume dc sonar
+```
+######设置项目使用的资源大小
+```batch
+# oc set resources dc/sonar --limits=memory=2Gi --requests=memory=1Gi
+# oc set resources dc/minio --limits=cpu=4,memory=8Gi --requests=cpu=100m,memory=512Mi
+```
+######使用挂载pvc存储
+```batch
+
+```
+######容器健康检查 liveness活性探针  readiness状态探针
+```batch
+    --liveness                     活性探针
+    --readiness                    状态探针
+     
+    --failure-threshold 3          做多失败次数3次
+    --initial-delay-seconds 5      容器首次启动时延迟5秒执行
+    --timeout-seconds 1            超时设置为2秒
+    --period-seconds 20            每个10秒监测一次
+    --get-url=http://:9000/minio/health/live  访问http协议 9000端口 地址 minio/health/live
+例子：
+    # 用来监控容器内服务是否健康
+    oc set probe dc/minio \
+        --readiness \
+        --failure-threshold 3 \
+        --initial-delay-seconds 5 \
+        --timeout-seconds 1 \
+        --period-seconds 20 \
+        --get-url=http://:9000/minio/health/ready
+   # 用来监控容器是否健康
+   # oc set probe dc/minio \
+        --liveness \
+        --failure-threshold 3 \
+        --initial-delay-seconds 5 \
+        --timeout-seconds 1 \
+        --period-seconds 20 \
+        --get-url=http://:9000/minio/health/live
 ```
 ######获取具体项目内容配置名字
 ```batch
