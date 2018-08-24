@@ -217,8 +217,17 @@ jenkins-2-zkzrj             1/1       Running       0          1h        deploym
 ```
 
 #集群操作命令
-###### 看节点 输出标签 另一个是输出具体细节
+######看节点 输出标签 另一个是输出具体细节
 ```batch
 [root@master-39-1 ~]# oc get node --show-labels=true 
 [root@master-39-1 ~]# oc get nodes -o wide
+```
+######GCC权限分配管理
+```batch
+  赐予服务账号hostnetwork-right:sareader anyuid权限
+# oadm policy add-scc-to-user anyuid system:serviceaccount:hostnetwork-right:sareader
+  赐予服务账户hostnetwork-right:sareader 特权privileged
+# oadm policy add-scc-to-user privileged system:serviceaccount:hostnetwork-right:sareader
+  赐予服务账户hostnetwork-right:sareader 集群访问权利cluster-reader
+# oadm policy add-cluster-role-to-user cluster-reader system:serviceaccount:hostnetwork-right:sareader
 ```

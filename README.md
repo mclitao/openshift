@@ -3,9 +3,6 @@
 ### 系统诊断
  oadm diagnostics
 
-## 系统诊断
-
- oadm diagnostics
  
 ## 服务命名规则
  
