@@ -104,12 +104,11 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc get secret webconsole-serving-cert --namespace openshift-web-console -o yaml 
   base64加密
 # echo "要加密的原文" | base64
+  base64解密
+# echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d
   查看令牌内容
 # oc describe secret router-token-uyuql
 ```
-######<font color='red'>base64解密</font>
-> <font color='yellow'>echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d</font>
-
 ######将`secrets`的配置内容保存成文件
 ```batch
 # oc secrets new <配置名>  datasources.env
