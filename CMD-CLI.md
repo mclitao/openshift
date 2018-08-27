@@ -1,10 +1,10 @@
-#OpenShift Origin v3.9 CLI @ mclitao
+#OpenShift Origin v3.9 CLI<font color='red'> @ **mclitao**</font>
 >官方手册：https://docs.openshift.com/container-platform/3.9/welcome/index.html
 >说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
 >方便查询使用,谁总没事记着这些啊！
 
-#特权参数
->--force    强制执行参数 
+#**特权参数**
+><font color='red'>**--force**</font>    **强制执行参数** 
 
 #基础操作命令
 ######使用超级管理员登录目标master
@@ -79,14 +79,11 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc adm policy add-cluster-cluster-role-to-group cluster-admin admins
 ```
 
-
-
-
-######serviceaccounts服务账号
+######`serviceaccounts`服务账号
 ```batch
 # oc get serviceaccounts
 ```
-######GCC权限分配管理
+######`GCC`权限分配管理
 ```batch
   赐予服务账号hostnetwork-right:sareader anyuid权限
 # oadm policy add-scc-to-user anyuid system:serviceaccount:hostnetwork-right:sareader
@@ -97,7 +94,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
   查看gcc
 # oc get scc  
 ```
-######还原密码  查看一个密码配置文件中的base64加密前的原密码
+######还原密码  查看一个密码配置文件中的<font color='red'>base64</font>加密前的原密码
 ```batch
 # oc get secret --namespace myapp virtuous-echidna-redis -o jsonpath="{.data.redis-password}" | base64 --decode
 # oc get secret webconsole-serving-cert --namespace openshift-web-console -o jsonpath="{.data.tls\.key}" | base64
@@ -107,13 +104,13 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc get secret webconsole-serving-cert --namespace openshift-web-console -o yaml 
   base64加密
 # echo "要加密的原文" | base64
-  base64解密
-# echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d
-
   查看令牌内容
 # oc describe secret router-token-uyuql
 ```
-######将secrets的配置内容保存成文件
+######<font color='red'>base64解密</font>
+> <font color='yellow'>echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d</font>
+
+######将`secrets`的配置内容保存成文件
 ```batch
 # oc secrets new <配置名>  datasources.env
 ```
@@ -129,7 +126,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 
 #项目操作命令
 
-######Templagte模板
+######`Templagte`模板
 ```batch
   查看openshfit全局公共空间下的模板
 # oc get template -n openshift                
@@ -149,7 +146,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
   查询temple中定义的route的host内容
 # oc get route jenkins -o template --template='{{.spec.host}}' 
 ```
-######新建 删除 进入 项目 | 停止项目 | 开启项目 |3种部署代码的方法
+######新建 `删除项目` `进入项目` | `停止项目` | `开启项目` | 3种部署代码的方法
 ```batch
 # oc new-project <项目名>
 # oc delete project <项目名>
@@ -180,7 +177,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc set resources dc/sonar --limits=memory=2Gi --requests=memory=1Gi
 # oc set resources dc/minio --limits=cpu=4,memory=8Gi --requests=cpu=100m,memory=512Mi
 ```
-######使用挂载pvc存储 | 移除pvc存储
+######使用挂载`pvc`存储 | 移除`pvc`存储
 ```batch
 # 建立100G大小的pvc名字为minio-pvc-data 绑定到pod的minio-volume-1下对应是容器里面的/data/目录
 # oc volumes dc/minio --add \
@@ -199,7 +196,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc set volumes dc/minio --add --name=minio-data --mount-path=/data/ --type persistentVolumeClaim --claim-name=minio-pvc-data
 
 ```
-######容器健康检查 liveness活性探针  readiness状态探针
+######容器健康检查 `liveness`活性探针  `readiness`状态探针
 ```batch
     --liveness                     活性探针
     --readiness                    状态探针
@@ -227,7 +224,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
         --period-seconds 20 \
         --get-url=http://:9000/minio/health/live
 ```
-######获取limits | Quotas 等资源情况以及修改调整
+######获取`limits` | `Quotas` 等资源情况以及修改调整
 ```batch
 # oc get resourcequota 或 oc get quota
 # oc get limits 或  oc get limitranges
@@ -244,7 +241,7 @@ oc get all -o name --selector app=demo2
  ----------------查看具体实时日志----------------------
 # oc logs build/jee-ex-1   --follow
 ```
-######根据已经部署的实例生成template
+######根据已经部署的实例生成`template`
 ```batch
 # oc export dc,svc,route --as-template=minio.yaml > minio5.yaml
 ```
@@ -255,7 +252,7 @@ oc get all -o name --selector app=demo2
 ```batch
 # oc debug dc/项目名
 ```
-######查看app的部署进度状况
+######查看`app`的部署进度状况
 ```batch
 # oc rollout status deployment <app> 
 ```
@@ -282,21 +279,21 @@ oc get all -o name --selector app=demo2
  使用patch修正参数来向oauthclient/openshift-web-console -p参数增加一个数据
 # oc patch oauthclient/openshift-web-console -p '{"redirectURIs":["https://localhost:9000"]}'
 ```
-######手动命令暴露Pod一个新的port端口 
+######手动命令暴露`Pod`一个新的`port`端口 
 ```batch
    给目标pods定义一个新的端口5000，并将端口暴露出来作为service，并建立路由
 # oc patch dc nexus -p '{"spec":{"template":{"spec":{"containers":[{"name":"nexus","ports":[{"containerPort": 5000,"protocol":"TCP","name":"docker"}]}]}}}}'
 # oc expose dc nexus --name=nexus-registry --port=5000
 # oc create route edge nexus-registry --service=nexus-registry
 ```
-######查看pods的标签lables内容
+######查看`pods`的标签`lables`内容
 ```batch
 # 查看具体pods上的对应标签内容
 # oc get pods  --show-labels=true |grep jenkins
 NAME                        READY     STATUS        RESTARTS   AGE       LABELS
 jenkins-2-zkzrj             1/1       Running       0          1h        deployment=jenkins-2,deploymentconfig=jenkins,name=jenkins
 ```
-######强制替换现有的一个模板  replace --force
+######强制替换现有的一个模板  replace `--force`
 ```batch
 # oc replace --force -f https://gitlab.com/oprudkyi/openshift-templates/raw/master/php-fpm/php-fpm.yaml -n openshift
 ```
