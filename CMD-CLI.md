@@ -18,7 +18,7 @@ https://172.99.0.88:8443
 ```
 ######登录用户是谁,以及令牌 token | 入口地址
 ```batch
-#  oc login -u developer
+# oc login -u developer
 # oc whoami 
 # oc whoami --show-token
 # oc whoami --show-context 
