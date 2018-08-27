@@ -20,8 +20,11 @@ https://172.99.0.88:8443
 ```batch
 # oc login -u developer
 # oc whoami 
+developer
 # oc whoami --show-token
+SzQjAHyn1baS5kYxAA0UDRBowB4t0Fihb-FhhPmvH6k
 # oc whoami --show-context 
+default/172-99-0-88:8443/developer
 ```
 ######使用管理员登录仓库
 ```batch
@@ -46,7 +49,7 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```
 ######全部集群的角色列表\角色内容|工作组
 ```batch
-#  oc get clusterroles
+# oc get clusterroles
 # oc describe clusterrole cluster-admin
 # oc get groups
 ```
@@ -289,7 +292,7 @@ oc get all -o name --selector app=demo2
 ######查看pods的标签lables内容
 ```batch
 # 查看具体pods上的对应标签内容
-#  oc get pods  --show-labels=true |grep jenkins
+# oc get pods  --show-labels=true |grep jenkins
 NAME                        READY     STATUS        RESTARTS   AGE       LABELS
 jenkins-2-zkzrj             1/1       Running       0          1h        deployment=jenkins-2,deploymentconfig=jenkins,name=jenkins
 ```
