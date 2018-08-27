@@ -6,20 +6,18 @@
 > oc adm registry
 
 #### nexus2 私有仓库部署
-```batch
-# install nexus2
- oc new-app sonatype/nexus
+```commandline
+  install nexus2
+# oc new-app sonatype/nexus
 
-# install nexus3
- oc new-app sonatype/nexus3
- oc expose svc/nexus
-# ==============add volume of nexus============= #
- oc volume dc/nexus --add --name=nexus-storage -t pvc \
+  install nexus3
+# oc new-app sonatype/nexus3
+# oc expose svc/nexus
+ ==============add volume of nexus============= 
+# oc volume dc/nexus --add --name=nexus-storage -t pvc \
      --claim-name=nexus-claim --overwrite
 
 ```
-
-
 
 ###kong-template.yaml
 kong
