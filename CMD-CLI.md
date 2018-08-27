@@ -1,4 +1,10 @@
 #OpenShift Origin v3.9 CLI @ mclitao
+>官方手册：https://docs.openshift.com/container-platform/3.9/welcome/index.html
+>说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
+>方便查询使用,谁总没事记着这些啊！
+
+#特权参数
+>--force    强制执行参数 
 
 #基础操作命令
 ######使用超级管理员登录目标master
@@ -10,11 +16,12 @@
 # oc whoami --show-server
 https://172.99.0.88:8443
 ```
-######登录用户是谁,以及令牌token
+######登录用户是谁,以及令牌 token | 入口地址
 ```batch
 #  oc login -u developer
 # oc whoami 
 # oc whoami --show-token
+# oc whoami --show-context 
 ```
 ######使用管理员登录仓库
 ```batch
@@ -43,6 +50,50 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # oc describe clusterrole cluster-admin
 # oc get groups
 ```
+######权限分配 角色 组
+```batch
+  添加developers组
+# oc adm groups new developers
+  将dev用户添加到该组
+# oc adm groups add-users developers dev
+
+  赐予dev用户 view查看权限  当前所在demo项目的权限
+# oc policy add-role-to-user view dev
+  查看demo项目下的角色绑定关系
+# oc get rolebinding -n demo
+  查看具体的项目角色信息
+# oc get role -n demo
+  查看view角色的具体定义内容
+# oc describe clusterrole view
+  查看admin角色的权利定义内容
+# oc describe clusterrole admin
+
+  定义了一个admins组
+# oc adm groups new admins
+  将user2加入带这个组
+# oc adm groups add-users admins user2
+  并给admins组分配了集群超级管理员的角色
+# oc adm policy add-cluster-cluster-role-to-group cluster-admin admins
+```
+
+
+
+
+######serviceaccounts服务账号
+```batch
+# oc get serviceaccounts
+```
+######GCC权限分配管理
+```batch
+  赐予服务账号hostnetwork-right:sareader anyuid权限
+# oadm policy add-scc-to-user anyuid system:serviceaccount:hostnetwork-right:sareader
+  赐予服务账户hostnetwork-right:sareader 特权privileged
+# oadm policy add-scc-to-user privileged system:serviceaccount:hostnetwork-right:sareader
+  赐予服务账户hostnetwork-right:sareader 集群访问权利cluster-reader
+# oadm policy add-cluster-role-to-user cluster-reader system:serviceaccount:hostnetwork-right:sareader
+  查看gcc
+# oc get scc  
+```
 ######还原密码  查看一个密码配置文件中的base64加密前的原密码
 ```batch
 # oc get secret --namespace myapp virtuous-echidna-redis -o jsonpath="{.data.redis-password}" | base64 --decode
@@ -55,6 +106,9 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 # echo "要加密的原文" | base64
   base64解密
 # echo 5Yqg5a+G5a2X56ym5Y6f5paHCg== | base64 -d
+
+  查看令牌内容
+# oc describe secret router-token-uyuql
 ```
 ######将secrets的配置内容保存成文件
 ```batch
@@ -71,6 +125,27 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```
 
 #项目操作命令
+
+######Templagte模板
+```batch
+  查看openshfit全局公共空间下的模板
+# oc get template -n openshift                
+  查看全部空间下的模板
+# oc get template --all-namespaces            
+  查看目标模板内容
+# oc get template cakephp-mysql-example -o json -n openshift 
+  导出现有模板成为文件
+# oc export all -o yaml --as-template=kong-template > ./kong-template.ymal
+ 
+  导出svc内容为yaml
+# oc get svc gogs -o yaml
+  导出svc内容为json
+# oc get svc gogs -o json
+  查询svc内定义的clusterIP内容
+# oc get svc gogs -o template --template='{{.spec.clusterIP}}'
+  查询temple中定义的route的host内容
+# oc get route jenkins -o template --template='{{.spec.host}}' 
+```
 ######新建 删除 进入 项目 | 停止项目 | 开启项目 |3种部署代码的方法
 ```batch
 # oc new-project <项目名>
@@ -91,6 +166,11 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```batch
 # oc rollout pause dc sonar
 # oc rollout resume dc sonar
+```
+######进入pods执行命令|查看日志
+```batch
+# oc rsh <pods name>
+# oc logs <pods name>
 ```
 ######设置项目使用的资源大小
 ```batch
@@ -146,15 +226,16 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```
 ######获取limits | Quotas 等资源情况以及修改调整
 ```batch
-# oc get resourcequota
-# oc get limits
-# oc describe resourcequota <名>
+# oc get resourcequota 或 oc get quota
+# oc get limits 或  oc get limitranges
+# oc describe resourcequota <名> 
 # oc describe limits <名>
 ```
 ######获取具体项目内容配置名字
 ```batch
  ----------------dc,rs,rs,po,sv,route等名字------------ 
 # oc get all -o name
+# oc get routes --all-namespaces  查看全部路由服务
  ----------------只要app名字=demo2的内容--------------- 
 oc get all -o name --selector app=demo2
  ----------------查看具体实时日志----------------------
@@ -164,6 +245,9 @@ oc get all -o name --selector app=demo2
 ```batch
 # oc export dc,svc,route --as-template=minio.yaml > minio5.yaml
 ```
+######部署一个应用
+# oc deploy hello-openshift --laster
+
 ######手动调试启动目标部署这样就可以逐步排查问题了
 ```batch
 # oc debug dc/项目名
@@ -176,7 +260,9 @@ oc get all -o name --selector app=demo2
 ```batch
 # oc delete all --selector app=nettest
   或  
+  这种删除方法最实用 删除app名字为nettest的全部集合
 # oc delete all -l app=nettest
+# oc delete dc,rc,po,routes,svc,bc,builds,is,pvc <appname>
 ```
 ######分配privileged的gcc特权给目标项目下的服务账号
 ```batch
@@ -216,18 +302,29 @@ jenkins-2-zkzrj             1/1       Running       0          1h        deploym
 # oc set build-hook bc/blog --pose-commit --script "powershift image verify"
 ```
 
+
+
 #集群操作命令
 ######看节点 输出标签 另一个是输出具体细节
-```batch
+```batc
 [root@master-39-1 ~]# oc get node --show-labels=true 
 [root@master-39-1 ~]# oc get nodes -o wide
 ```
-######GCC权限分配管理
+######给node节点 打标签label
 ```batch
-  赐予服务账号hostnetwork-right:sareader anyuid权限
-# oadm policy add-scc-to-user anyuid system:serviceaccount:hostnetwork-right:sareader
-  赐予服务账户hostnetwork-right:sareader 特权privileged
-# oadm policy add-scc-to-user privileged system:serviceaccount:hostnetwork-right:sareader
-  赐予服务账户hostnetwork-right:sareader 集群访问权利cluster-reader
-# oadm policy add-cluster-role-to-user cluster-reader system:serviceaccount:hostnetwork-right:sareader
+  给全部节点打上logging-infra-fluentd标签
+# oc label nodes --all logging-infra-fluentd=true
+  给一个节点打上logging-infra-fluentd标签
+# oc label nodes node1.example.com logging-infra-fluentd=true
+  给一个节点打上infra标签
+# oc label node node1.example.com infra=yes
+  给节点打上compute标签
+# oc label node <节点名> node-role.kubernetes.io/compute=true
 ```
+######查看每个节点分配的docker子网信息
+```batch
+# oc get hostsubnets
+  查看消息事件
+# oc get event   
+```
+
