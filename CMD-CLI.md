@@ -1,4 +1,4 @@
-#OpenShift Origin v3.9 CLI<font color='red'> @ **mclitao**</font>
+###OpenShift Origin v3.9 CLI @ **mclitao**
 >官方手册：https://docs.openshift.com/container-platform/3.9/welcome/index.html
 >说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
 >方便查询使用,谁总没事记着这些啊！
