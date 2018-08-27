@@ -3,17 +3,16 @@
 >说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
 >方便查询使用,谁总没事记着这些啊！
 
-#**特权参数**
-><font color='red'>**--force**</font>    **强制执行参数** 
+**特权参数**：<font color='red'>**--force**</font>    **强制执行参数** 
 
 #基础操作命令
 ######使用超级管理员登录目标master
 ```batch
-# oc login -u system:admin https://172.16.5.131:8443
+ oc login -u system:admin https://172.16.5.131:8443
 ```
 ######查看当前用户登录到那台服务器
 ```batch
-# oc whoami --show-server
+ oc whoami --show-server
 https://172.99.0.88:8443
 ```
 ######登录用户是谁,以及令牌 token | 入口地址
