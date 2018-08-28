@@ -1,6 +1,6 @@
 #集群操作命令
 ######看节点 输出标签 另一个是输出具体细节
-```batc
+```batch
 [root@master-39-1 ~]# oc get node --show-labels=true 
 [root@master-39-1 ~]# oc get nodes -o wide
 ```
