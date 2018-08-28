@@ -1,5 +1,22 @@
+###OpenShift Origin v3.9 CLI @ **mclitao**
+>官方手册：https://docs.openshift.com/container-platform/3.9/welcome/index.html
+>说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
+>方便查询使用,谁总没事记着这些啊！
 
-######登录用户是谁,以及令牌 token | 入口地址
+**特权参数**：<font color='red'>**--force**</font>    **强制执行参数** 
+
+
+#基础操作命令
+#####使用超级管理员登录目标master
+```batch
+ oc login -u system:admin https://172.16.5.131:8443
+```
+**查看当前用户登录到那台服务器**
+```batch
+ oc whoami --show-server
+https://172.99.0.88:8443
+```
+#####登录用户是谁,以及令牌 token | 入口地址
 ```batch
 # oc login -u developer
 # oc whoami 
@@ -9,12 +26,12 @@ SzQjAHyn1baS5kYxAA0UDRBowB4t0Fihb-FhhPmvH6k
 # oc whoami --show-context 
 default/172-99-0-88:8443/developer
 ```
-######使用管理员登录仓库
+#####使用管理员登录仓库
 ```batch
 # oc login -u system:admin https://172.16.5.131:8443
 # docker login -u admin -p $(oc whoami -t)  docker-registry.default.svc:5000
 ```
-######查看用户|添加用户|删除用户|修改密码|查看admin用户的全部权限明细
+#####查看用户|添加用户|删除用户|修改密码|查看admin用户的全部权限明细
 ```batch
 # oc get user
 NAME      UID                                    FULL NAME   IDENTITIES
