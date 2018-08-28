@@ -1,4 +1,8 @@
 kind: Template
+message: 用户只需设置2个内容就可以完成新产品版本的编译发布
+  第一：给出NEXUS RUL 和 GIT 地址
+  第二：给出产品基础镜像
+  第三：新的茶品名字
 apiVersion: v1
 metadata:
   name: custom-build
@@ -25,7 +29,7 @@ objects:
         type: Source
         sourceStrategy:
           from:
-            description: 产品镜像的箱子是谁在那个空间下
+            description: 产品镜像的箱子在这里指定
             kind: "ImageStreamTag"
             namespace: "openshift"
             name: 'tomcat8-jdk8:latest'
