@@ -3,10 +3,12 @@
 >说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
 >方便查询使用,谁总没事记着这些啊！
 
-**特权参数**：
-><font color='red'>**--force**</font>    **强制执行参数**
+**特殊参数**：
+> oc replace <font color='red'>**--force**</font>    **强制执行参数**
 
-             
+> oc logs podsname <font color='yellow'>**--follow**</font> **日志跟随**
+  
+> 
 
 #`基础操作命令`
 >=========================================
@@ -29,6 +31,8 @@ developer
 SzQjAHyn1baS5kYxAA0UDRBowB4t0Fihb-FhhPmvH6k
 # oc whoami --show-context 
 default/172-99-0-88:8443/developer
+  当前用户密码加密后
+# oc whoami -t
 ```
 **使用管理员登录仓库**
 ```batch
@@ -41,7 +45,7 @@ default/172-99-0-88:8443/developer
 NAME      UID                                    FULL NAME   IDENTITIES
 admin     14480df8-8340-11e8-8b37-000c293e7d45               htpasswd_auth:admin
 # htpasswd -b /etc/origin/master/htpasswd <dev> <密码>
-# tpasswd -D /etc/origin/master/htpasswd <user_name>
+# htpasswd -D /etc/origin/master/htpasswd <user_name>
 # htpasswd -c -b <user_name> <password>
 # oc describe clusterrole admin
 ```
@@ -159,11 +163,11 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
  --------------将关闭的应用项目打开------------------------- 
 # oc scale --replicas=1 dc <dcname>
  -------------镜像 + 代码 部署------------------------------
-# oc new-app 厂家/镜像语言平台~https://github.com/openshift/ruby-hello-world.git
+# oc new-app 厂家/镜像语言平台~https://github.com/openshift/ruby-hello-world.git  --name='app-demo
 --------------镜像Ruby-20-centos7:latest + 目录的源代码-----
-# oc new-app openshift/ruby-20-centos7:latest~/home/user/code/my-ruby-app
+# oc new-app openshift/ruby-20-centos7:latest~/home/user/code/my-ruby-app  --name='app-demo
 --------------镜像 + ENV参数--------------------------------
-# oc new-app openshift/postgresql-92-centos7 --env-file=postgresql.env
+# oc new-app openshift/postgresql-92-centos7 --env-file=postgresql.env  --name='app-demo
 ```
 **暂停 | 恢复 项目**
 ```batch
@@ -174,6 +178,10 @@ htpasswd_auth:admin   htpasswd_auth   admin           admin       14480df8-8340-
 ```batch
 # oc rsh <pods name>
 # oc logs <pods name>
+```
+**删除指定app下的全部PODS,注意：rc会马上重建它们**
+```batch
+# oc delete pod -l app=nginx 
 ```
 **设置项目使用的资源大小**
 ```batch
@@ -248,8 +256,10 @@ oc get all -o name --selector app=demo2
 ```batch
 # oc export dc,svc,route --as-template=minio.yaml > minio5.yaml
 ```
-**部署一个应用**
+**部署一个容器应用**
+```batch
 # oc deploy hello-openshift --laster
+```
 
 **手动调试启动目标部署这样就可以逐步排查问题了**
 ```batch
@@ -305,7 +315,37 @@ jenkins-2-zkzrj             1/1       Running       0          1h        deploym
 # oc set build-hook bc/blog --pose-commit --script "powershift image verify"
 ```
 
+#'S2I镜像build部分'
+```batch
 
+  编译一个base镜像,dockerfile在git本目录下
+# oc new-build --strategy=docker --name=tomcat8-jdk8 \
+   https://github.com/debianmaster/openshift-s2i-example.git
+  或使用参数--context-dir 指定在git下那个目录
+# oc new-build --strategy=docker \
+    centos/httpd-24-centos7~http://gogs-cicd-mydemo.172.99.0.88.nip
+.io/gogs/xcloud-openshift-web.git  \
+    --context-dir=images/origin-web-console-builder/      
+
+  建立build 编译一个[image]+[source code]的S2I
+# oc new-build openshift/nodejs-010-centos7~https://github.com/openshift/nodejs-ex.git
+  使用一个分支build
+# oc new-build https://github.com/openshift/ruby-hello-world#beta2
+  本地dockerfile编译并指定构建参数RUN
+# oc new-build -D $'FROM centos:7\nRUN yum install -y httpd'
+  使用-e来设置buildconfig的参数
+# oc new-build https://github.com/openshift/ruby-hello-world -e RACK_ENV=development   
+ 
+  Create a build config that gets its input from a remote repository and another Docker image
+# oc new-build https://github.com/openshift/ruby-hello-world --source-image=openshift/jenkins-1-centos7
+--source-image-path=/var/lib/jenkins:tmp
+   
+   
+  S2I打包本地目录.代码 
+# oc new-build --strategy=docker  centos/httpd-24-centos7 .
+
+
+```
 
 #`集群操作命令`
 >=========================================
@@ -332,4 +372,30 @@ jenkins-2-zkzrj             1/1       Running       0          1h        deploym
   查看消息事件
 # oc get event   
 ```
+#项目应用数据备份类命令
+>====================================================
+
+**数据备份**
+```batch
+  找到容器内的应用数据路径  例如找出jenkins的
+# oc get dc/jenkins -o jsonpath='{ .spec.template.spec.containers[?(@.name=="jenkins")].volumeMounts[?(@.name=="jenkins-data")].mountPath }'
+/var/lib/jenkins
+
+  找到应用容器名字
+# oc get pod --selector=deploymentconfig=jenkins -o jsonpath='{.metadata.name }'
+jenkins-1-37nux
+
+  拷贝容器内容数据 到 宿主机本地目录
+# oc rsync 容器名:/目录  .本机目录
+
+  使用rsync同步出来容容器内数据备份到外面
+# oc rsync jenkins-1-37nux:/var/lib/jenkins /tmp/
+
+  向容器里面还原数据
+# oc rsync /tmp/jenkins-backup/jenkins jenkins-1-37nux:/var/lib
+
+  查看目标容器目录下的大小
+# oc rsh docker-registry-1-blpar 'du'  'sh'  '/registry'
+```
+
 
