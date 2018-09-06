@@ -55,13 +55,38 @@
     |23|--dns|给容器制定一个dns服务器,默认和宿主一致|
     |24|--env-file|以文件方式引入一度ENV变量给容器|
     |25|--entrypoint bash|进入容器手动调试，组织默认的命令执行|
-    |26|-m|指定可以使用的最大内存|
-    |27|--memory-swap|指定内存转换分区大小|同上|
-    |28|--oom-kill-disable=true|禁止宿主机内核杀死这个容器|禁止内核在没有内存时杀死该容器|该项需要和--memory、还有--memory-swap、一起使用不然很危险会出现内存超限问题|
-    |29|--cpu-period=100000|
-    |30|--cpu-quota=200000|
-    |31|--cpuset-cpus="1,3"|指定1和3核心给这个容器|
-  
+    |  |下面是资源显示memory和cpu的限制方式|
+    |26|-m,--memory|指定可以使用的最大内存，格式是数字加单位，单位可以为 b,k,m,g。最小为 4M|
+    |27|--memory-swap|内存+交换分区大小总限制。格式同上。必须必-m设置的大|
+    |28|--memory-reservation|内存的软性限制。格式同上|
+    |29|--oom-kill-disable|是否阻止 OOM killer 禁止内核在没有内存时杀死该容器 该项需要和--memory、还有--memory-swap、一起使用不然很危险会出现内存超限问题|
+    |30|--oom-score-adj|容器被 OOM killer 杀死的优先级，范围是[-1000, 1000]，默认为 0|
+    |31|--memory-swappiness|用于设置容器的虚拟内存控制行为。值为 0~100 之间的整数|
+    |32|--kernel-memory|核心内存限制。格式同上，最小为 4M|
+    |  |如果容器使用了大于 200M 但小于 500M 内存时，下次系统的内存回收会尝试将容器的内存锁紧到 200M 以下。
+        docker run -it -m 500M --memory-reservation 200M ubuntu:16.04 /bin/bash      
+        正确的使用容器的方法：限制容器的内存为 100M 并禁止了 OOM killer：
+        docker run -it -m 100M --oom-kill-disable ubuntu:16.04 /bin/bash  
+    |
+    |29|--cpu-period=100000||
+    |30|--cpu-quota=200000||
+    |31|--cpuset-cpus="1,3"|指定1和3核心给这个容器，值可以为 0-3,0,1|
+    |32|-c,--cpu-shares=0|CPU 共享权值（相对权重）|
+    |33|cpu-period=0|限制 CPU CFS 的周期，范围从 100ms~1s，即[1000, 1000000]|
+    |34|--cpu-quota=0|限制 CPU CFS 配额，必须不小于1ms，即 >= 1000|
+    |35|--cpuset-mems=|允许在上执行的内存节点（MEMs），只对 NUMA 系统有效|
+    |  |
+        第一个容器使用1号cpu的全部时钟，使用改CPU的100%能力
+        $ docker run --rm --name test01 --cpu-cpus 1 --cpu-quota=50000 --cpu-period=50000 deadloop:busybox-1.
+        
+        第二个容器 在意一样的参数拉起，这样实际上是2个容器各自用了1号cpu的50%计算力因为时钟轮训间隔周期频率一致
+        $ docker run --rm --name test01 --cpu-cpus 2 --cpu-quota=50000 --cpu-period=50000 deadloop:busybox-1.
+        
+        第三次，我们删了第二个容器再次启动它增加一个-c 2048参数，这样第二个容器就会使用除了自身的计算时间外的其他人的资源共享了他们的2048，导致第一个容器只是用了33%第二个容器使用了65%
+        docker run --rm --name test02 --cpu-cpus 1 --cpu-quota=50000 --cpu-period=50000 -c 2048 deadloop:busybox-1.25.1-glibc
+        观察到第一个容器的 CPU 使用率在 33% 左右，第二个容器的 CPU 使用率在 66% 左右。因为第二个容器的共享值是 2048，第一个容器的默认共享值是 1024，所以第二个容器在每个周期内能使用的 CPU 时间是第一个容器的两倍。
+        |
+
 - **基础命令**
   - 
     ```
