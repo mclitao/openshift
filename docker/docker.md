@@ -63,8 +63,8 @@
     |30|--oom-score-adj|容器被 OOM killer 杀死的优先级，范围是[-1000, 1000]，默认为 0|
     |31|--memory-swappiness|用于设置容器的虚拟内存控制行为。值为 0~100 之间的整数|
     |32|--kernel-memory|核心内存限制。格式同上，最小为 4M|
-    |  |如果容器使用了大于 200M 但小于 500M 内存时，下次系统的内存回收会尝试将容器的内存锁紧到 200M 以下<br>docker run -it -m 500M --memory-reservation 200M 
-    ubuntu:16.04 /bin/bash <br>正确的使用容器的方法：限制容器的内存为 100M 并禁止了 OOM killer： <br>docker run -it -m 100M --oom-kill-disable ubuntu:16.04 /bin/bash||
+    |  |如果容器使用了大于 200M 但小于 500M 内存时，下次系统的内存回收会尝试将容器的内存锁紧到 200M 以下<br>docker run -it -m 500M --memory-reservation 200M
+     ubuntu:16.04 /bin/bash <br>正确的使用容器的方法：限制容器的内存为 100M 并禁止了 OOM killer： <br>docker run -it -m 100M --oom-kill-disable ubuntu:16.04 /bin/bash||
     |29|--cpu-period=100000||
     |30|--cpu-quota=200000||
     |31|--cpuset-cpus="1,3"|指定1和3核心给这个容器，值可以为 0-3,0,1|
