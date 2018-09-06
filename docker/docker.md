@@ -154,7 +154,6 @@
 
 - **镜像加速器**
   - 
-    <font color='red'>**docker镜像加速**</font>
     ```batch
       请使用你自己的阿里加速源 
     # sudo tee /etc/docker/daemon.json <<-'EOF'
@@ -167,7 +166,6 @@
     ```
 - **清除<none>悬挂镜像**
   - 
-    <font color='red'>**清除镜像垃圾**</font>
     ```batch
       docker版本到1.13.1
       这个命令将清理整个系统，并且只会保留真正在使用的镜像，容器，数据卷以及网络。 
@@ -176,9 +174,12 @@
     ```
 - **强制全部删除容器**
   - 
-    >> 1.# docker rm -f  $(docker ps -qa) 
-    >> 2.# docker rmi <镜像名>
-    >>.3.# docker rm -f  $(docker ps -qa)
+    ```batch
+    # docker rm -f  $(docker ps -qa) 
+    # docker rmi <镜像名>
+    # docker rm -f  $(docker ps -qa)
+    ```
+    
  
 - **进入目标容器的cli交互模式**
   - 
@@ -211,111 +212,50 @@
     # docker build -t litao/dashboardl5:0.3 /root/xCloud/dashboard/
     # docker build -t <仓库名>/<镜像名>:<版本>  /root/xCloud/dashboard/
     ```
-
-
-
-
-
-
-####md文件的参考例子：
->md是markdown文件格式,是一种可以转换为静态html的文本书写格式。
->https://github.com/BriData/Administrative-divisions-of-China/blob/master/README.md
->https://blog.csdn.net/yanxiangyfg/article/details/74990232
->http://www.mamicode.com/info-detail-2050387.html
-
-
-
-
-  
-  保存对容器的修改为新的镜像  
-  -a, --author="Author" 
-  -m, --message="Commit message  "
-# docker commit ID <new_image_name>
-
-
-更换docker 根目录的方法
-```batch
-修改/etc/docker/daemon.json
-"graph":"/opt/docker"
-或
-mount -o bian /var/lib/docker /opt/docker
-或
-ln -s /var/lib/docker /opt/docker
-```
-
-
-
-#LVM2存储[点击查看官网](https://docs.docker.com/engine/userguide/storagedriver/device-mapper-driver/#image-layering-and-sharing)
-###### Log in to the Docker host you want to configure and stop the Docker daemon.
-###### Install the LVM2 package. The LVM2 package includes the userspace toolset that provides logical volume management facilities on linux.
-###### Create a physical volume replacing /dev/xvdf with your block device.
-
-	$ systemctl stop docker
-	$ pvcreate /dev/xvdf
-	$ vgcreate docker /dev/xvdf
-
-###### Create a thin pool named thinpool.
-###### In this example, the data logical is 95% of the ‘docker’ volume group size.
-###### Leaving this free space allows for auto expanding of either the data or metadata if space runs low as a temporary stopgap.
-	$ lvcreate --wipesignatures y -n thinpool docker -l 95%VG
-	$ lvcreate --wipesignatures y -n thinpoolmeta docker -l 1%VG
-	$ lvconvert -y --zero n -c 512K --thinpool docker/thinpool --poolmetadata docker/thinpoolmeta
-	$ vim /etc/lvm/profile/docker-thinpool.profile
-	activation {
-	    thin_pool_autoextend_threshold=80
-	    thin_pool_autoextend_percent=20
-	}
-
-	$ lvchange --metadataprofile docker-thinpool docker/thinpool
-
-###### If the Docker daemon was previously started, clear your graph driver directory.
-###### Clearing your graph driver removes any images, containers, and volumes in your Docker installation.
-	$ rm -rf /var/lib/docker/*
-
-###### Configure the Docker daemon with specific devicemapper options.
-###### There are two ways to do this. You can set options on the command line if you start the daemon there:
-	--storage-driver=devicemapper --storage-opt=dm.thinpooldev=/dev/mapper/docker-thinpool --storage-opt dm.use_deferred_removal=true
-
-###### You can also set them for startup in the daemon.json configuration, for example:
-	 {	
-	     "storage-driver": "devicemapper",
-	     "storage-opts": [
-	         "dm.thinpooldev=/dev/mapper/docker-thinpool",
-	         "dm.use_deferred_removal=true"
-	     ]
-	 }
- 
- 
-###### If using systemd and modifying the daemon configuration via unit or drop-in file, reload systemd to scan for changes.
-	$ systemctl daemon-reload && systemctl start docker
-
-###### After you start the Docker daemon, ensure you monitor your thin pool and volume group free space.
-###### While the volume group will auto-extend, it can still fill up. To monitor logical volumes, 
-###### use lvs without options or lvs -a to see tha data and metadata sizes. To monitor volume group free space, use the vgs command.
-###### Logs can show the auto-extension of the thin pool when it hits the threshold, to view the logs use:
-
-	$ journalctl -fu dm-event.service
-
-
-
-<font color='red'>**===docker-compose安装===**</font>
-```batch
-# 方法一：在线
-$ curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-$ chmod +x /usr/local/bin/docker-compose
-# Linux下等效于
-$ curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose; chmod +x /usr/local/bin/docker-compose
-
-# 方法二：使用pip安装，版本可能比较旧
-$ yum install python-pip python-dev
-$ pip install docker-compose
-
-# 方法三：作为容器安装
-$ curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
-$ chmod +x /usr/local/bin/docker-compose
-
-# 方法四：离线安装
-# wget https://github.com/docker/compose/releases/download/1.8.1/docker-compose-Linux-x86_64
-$ mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
-$ chmod +x /usr/local/bin/docker-compose
-```
+- **保存对容器的修改为新的镜像**
+  - 
+  ```batch
+  # docker commit ID <new_image_name>
+  参数：
+    -a, --author="Author" 
+    -m, --message="Commit message"
+  ```
+- **更换docker 根目录的方法**
+  - 
+    ```batch
+    修改/etc/docker/daemon.json
+    "graph":"/opt/docker"
+    或
+    mount -o bian /var/lib/docker /opt/docker
+    或
+    ln -s /var/lib/docker /opt/docker
+    ```
+- **更换docker 驱动为LVM**
+  - 
+  ```batch
+  Docker Storage LVM2驱动[点击查看官网](https://docs.docker
+  .com/engine/userguide/storagedriver/device-mapper-driver/#image-layering-and
+  -sharing)
+  ```
+- **docker-compose安装**
+  - 
+    ```batch
+    # 方法一：在线
+    $ curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
+    # Linux下等效于
+    $ curl -L https://github.com/docker/compose/releases/download/1.8.1/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose; chmod +x /usr/local/bin/docker-compose
+    
+    # 方法二：使用pip安装，版本可能比较旧
+    $ yum install python-pip python-dev
+    $ pip install docker-compose
+    
+    # 方法三：作为容器安装
+    $ curl -L https://github.com/docker/compose/releases/download/1.8.0/run.sh > /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
+    
+    # 方法四：离线安装
+    # wget https://github.com/docker/compose/releases/download/1.8.1/docker-compose-Linux-x86_64
+    $ mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+    $ chmod +x /usr/local/bin/docker-compose
+    ```
