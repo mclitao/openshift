@@ -1,4 +1,3 @@
-
 ---
 layout: global
 displayTitle: Dbus 概览
@@ -7,11 +6,10 @@ description: Dbus文档首页 DBUS_VERSION_SHORT
 ---
 
 ###docker 环境
-
-| id| 文件列表                                |           描述         |
-|:--------------------------------------------|:-----------------------|
-| 0 |  /usr/lib/systemd/system/docker.service | 服务文件位置           |
-| 1 |  /lib/systemd/system/docker.socket      |                        |
+| id| 文件列表                                 |           描述         |
+|:--------------------------------------------|:----------------------|
+| 0 |  /usr/lib/systemd/system/docker.service | 服务文件位置            |
+| 1 |  /lib/systemd/system/docker.socket      |                       |
 | 2 |  /etc/sysconfig/docker                  | options选项在这里      |
 | 3 |  /etc/sysconfig/docker-network          | 网络配置               |
 | 4 |  /etc/sysconfig/docker-storage          | 存储配置               |
