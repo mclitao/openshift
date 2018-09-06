@@ -1,4 +1,4 @@
-<img src="https://github.com/edp963/wormhole/raw/master/docs/img/wormhole-logo.png" alt="" width="300"/>
+<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536227487054&di=75e7029f9a0be6e84ef588a38227a60f&imgtype=0&src=http%3A%2F%2Fs4.51cto.com%2Foss%2F201808%2F17%2Ff6c05ff14e2bb803dc3b11908a42f75d.jpg-wh_651x-s_378888502.jpg" alt="" width="300"/>
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/edp963/wormhole.svg?branch=master)](https://travis-ci.org/edp963/wormhole)
@@ -9,20 +9,33 @@
 
 ### 笔记目录
 
-- **Docker**
+- **Docker配置文件表**
   - 
-    | ID | 文件列表                              |     描述内容      |
-    |:---|:--------------------------------------|:----------------- |
-    | 0  |/usr/lib/systemd/system/docker.service | 服务文件位置      |
-    | 1  |/lib/systemd/system/docker.socket      |                   |
-    | 3  |/etc/sysconfig/docker                  | options选项在这里 |
-    | 4 |  /etc/sysconfig/docker-storage          | 存储配置               |
-    | 5 |  /etc/sysconfig/docker-storage-setup    | 存储设置               |
-    | 6 |  /etc/docker/daemon.json                | 守护配置文件           |
-    | 7 |  rpm -qc docker                         | docker的全部配置文件   |
+    |ID | 文件列表                              |     描述内容      |
+    |:--|:--------------------------------------|:----------------- |
+    | 0 |/usr/lib/systemd/system/docker.service | 服务文件位置      |
+    | 1 |/lib/systemd/system/docker.socket      |                   |
+    | 3 |/etc/sysconfig/docker                  | options选项在这里 |
+    | 4 |/etc/sysconfig/docker-storage          | 存储配置               |
+    | 5 |/etc/sysconfig/docker-storage-setup    | 存储设置               |
+    | 6 |/etc/docker/daemon.json                | 守护配置文件           |
+    | 7 |rpm -qc docker                         | docker的全部配置文件   |
    
-- **具体参数**
-  - ```batch
+- **Docker参数表**
+   - 
+    |ID | 文件列表                              |     描述内容      |
+    |:--|:--------------------------------------|:----------------- |
+    | 0 |/usr/lib/systemd/system/docker.service | 服务文件位置      |
+    | 1 |/lib/systemd/system/docker.socket      |                   |
+    | 3 |/etc/sysconfig/docker                  | options选项在这里 |
+    | 4 |/etc/sysconfig/docker-storage          | 存储配置               |
+    | 5 |/etc/sysconfig/docker-storage-setup    | 存储设置               |
+    | 6 |/etc/docker/daemon.json                | 守护配置文件           |
+    | 7 |rpm -qc docker                         | docker的全部配置文件   |
+    
+ 
+ 
+ 
     
       -d                      后台执行模式
       -i                      交互
@@ -65,7 +78,7 @@
       --cpu-period=100000 
       --cpu-quota=200000
       --cpuset-cpus="1,3"       指定1和3核心给这个容器
-    ```
+    
   - 3
 - **基础命令**
   - 1
