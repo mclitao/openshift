@@ -1,5 +1,5 @@
-###docker 环境
-| id| 文件列表                                |           描述         |
+###docker 环境1
+|id|文件列表|描述|
 |:--------------------------------------------|:-----------------------|
 | 0 |  /usr/lib/systemd/system/docker.service | 服务文件位置           |
 | 1 |  /lib/systemd/system/docker.socket      |                        |
@@ -11,14 +11,6 @@
 | 7 |  rpm -qc docker                         | docker的全部配置文件   |
 
 
-
-#测试表格写法
----
-layout: global
-displayTitle: Dbus 概览
-title: 概览
-description: Dbus文档首页 DBUS_VERSION_SHORT
----
 
 ####md文件的参考例子：
 >md是markdown文件格式,是一种可以转换为静态html的文本书写格式。
