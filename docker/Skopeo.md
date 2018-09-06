@@ -1,5 +1,8 @@
-# Skopeo
-<img src="https://raw.githubusercontent.com/mclitao/openshift/master/docker/Skopeo.svg" alt="" width="250"/>
+# Skopeo[![Build Status](https://travis-ci.org/containers/skopeo.svg?branch=master)](https://travis-ci.org/containers/skopeo)
+=
+<img src="https://raw.githubusercontent.com/mclitao/openshift/master/docker/Skopeo.svg" width="250">
+----
+
 
 ## Skopeo的使用
 > 来自[skope](https://github.com/containers/skopeo)
