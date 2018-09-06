@@ -1,4 +1,4 @@
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1536227487054&di=75e7029f9a0be6e84ef588a38227a60f&imgtype=0&src=http%3A%2F%2Fs4.51cto.com%2Foss%2F201808%2F17%2Ff6c05ff14e2bb803dc3b11908a42f75d.jpg-wh_651x-s_378888502.jpg" alt="" width="300"/>
+<img src="https://github.com/mclitao/openshift/blob/master/docker/docker.jpg?raw=true" alt="" width="600"/>
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Build Status](https://travis-ci.org/edp963/wormhole.svg?branch=master)](https://travis-ci.org/edp963/wormhole)
@@ -23,61 +23,49 @@
    
 - **Docker参数表**
    - 
-    |ID | 文件列表                              |     描述内容      |
-    |:--|:--------------------------------------|:----------------- |
-    | 0 |/usr/lib/systemd/system/docker.service | 服务文件位置      |
-    | 1 |/lib/systemd/system/docker.socket      |                   |
-    | 3 |/etc/sysconfig/docker                  | options选项在这里 |
-    | 4 |/etc/sysconfig/docker-storage          | 存储配置               |
-    | 5 |/etc/sysconfig/docker-storage-setup    | 存储设置               |
-    | 6 |/etc/docker/daemon.json                | 守护配置文件           |
-    | 7 |rpm -qc docker                         | docker的全部配置文件   |
+    |ID | 参数 |     描述内容      |
+    |:--|:-----|:----------------- |
+    | 0 |-d|后台执行模式|
+    |0|-i|交互|
+    |0|-t|分配一个ttyz终端|terminal|
+    |0|-P|大P自动开放一个容器端口映射到宿主机|会自动映射本地49000~49900范文内的端口随机端口到容器的端口|
+    |0|-p|指定一个容器端口到主机端口|-p|8080:8080|
+    |0|-rm|容器运行退出时删除自己|
+    |0|-h|给容器指定一个内部hostname|
+    |0|--privileged=true|特权模式|
+    |0|--pid=host|让容器共享主机pid命名空间|在容器内部使用ps|-ef命令能看到宿主机的程序pid|
+    |0|--ipc=host|让容器共享主机ipc命名空间|
+    |0|--restart=always|容器退出时总是重启并运行容器,无限次数的尝试|
+    |0|--restart=no|退出后不在启动容器，默认的状态。|
+    |0|--restart=on-failure|非正常退出非0，才会重新启动容器|
+    |0|--restart=on-failure:3|非正常退出，只重试重启动三次。|
+    |0|--restart=unless-stopped|在容器退出时重启容器，docker守护启时已经停止的除外。就是不自启动。|
+    |0|--volumes-from|让运行的容器引用一个持久卷使用|
+    
+    |0|--net=host|使用宿主机全部网路接口|
+    |0|--net=none|不使用网络|
+    |0|--net=container|多容器公用ip地址|
+    |0|--net=bridge|docker默认模式，网桥模式|
+    |0|--link|链接2个容器之间网络|
+    |0|--expose|开放一个或一组端口|
+    |0|--dns|给容器制定一个dns服务器,默认和宿主一致|
+    |0|--name|给容器一个外部名字|
+    |0|-m|指定可以使用的最大内存|
+    |0|--env-file|以文件方式引入一度ENV变量给容器|
+    |0|--entrypoint bash|进入容器手动调试，组织默认的命令执行|
+    |0|-m|指定可用内存大小|超过时会被系统kill|
+    |0|--memory-swap|指定内存转换分区大小|同上|
+    |0|--oom-kill-disable=true|禁止宿主机内核杀死这个容器|禁止内核在没有内存时杀死该容器|该项需要和--memory、还有--memory-swap、一起使用不然很危险会出现内存超限问题|
+    |0|--cpu-period=100000|
+    |0|--cpu-quota=200000|
+    |0|--cpuset-cpus="1,3"|指定1和3核心给这个容器|
     
  
  
  
     
-      -d                      后台执行模式
-      -i                      交互
-      -t                      分配一个ttyz终端 terminal
-      --privileged=true        特权模式
-      --pid=host        让容器共享主机pid命名空间  在容器内部使用ps -ef命令能看到宿主机的程序pid
-      --ipc=host        让容器共享主机ipc命名空间
-      --restart=always  容器退出时总是重启并运行容器,无限次数的尝试
-      
-      --restart=no      退出后不在启动容器，默认的状态。
-      --restart=on-failure  非正常退出非0，才会重新启动容器
-      --restart=on-failure:3 非正常退出，只重试重启动三次。
-      --restart=unless-stopped  在容器退出时重启容器，docker守护启时已经停止的除外。就是不自启动。
-      
-      --volumes-from     让运行的容器引用一个持久卷使用
       
       
-      -P      大P自动开放一个容器端口映射到宿主机 会自动映射本地49000~49900范文内的端口随机端口到容器的端口
-      -p      指定一个容器端口到主机端口 -p 8080:8080
-      -rm           容器运行退出时删除自己
-      
-      --net=host  使用宿主机全部网路接口
-      --net=none  不使用网络
-      --net=container 多容器公用ip地址
-      --net=bridge docker默认模式，网桥模式
-      
-      --link  链接2个容器之间网络
-      --expose 开放一个或一组端口
-      --dns    给容器制定一个dns服务器,默认和宿主一致
-      -h       给容器指定一个内部hostname
-      --name   给容器一个外部名字
-      -m       指定可以使用的最大内存
-      --env-file  以文件方式引入一度ENV变量给容器
-      --entrypoint bash 进入容器手动调试，组织默认的命令执行
-      
-      -m 指定可用内存大小 超过时会被系统kill
-      --memory-swap  指定内存转换分区大小 同上
-      --oom-kill-disable=true  禁止宿主机内核杀死这个容器  禁止内核在没有内存时杀死该容器  该项需要和--memory 、还有--memory-swap 一起使用不然 很危险会出现内存超限问题
-        
-      --cpu-period=100000 
-      --cpu-quota=200000
-      --cpuset-cpus="1,3"       指定1和3核心给这个容器
     
   - 3
 - **基础命令**
