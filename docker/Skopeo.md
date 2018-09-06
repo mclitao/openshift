@@ -1,5 +1,5 @@
 # Skopeo
-<img src="https://github.com/mclitao/openshift/blob/master/docker/Skopeo.svg?raw=true" alt="" width="250"/>
+<img src="https://raw.githubusercontent.com/mclitao/openshift/master/docker/Skopeo.svg" alt="" width="250"/>
 
 ## Skopeo的使用
 > 来自[skope](https://github.com/containers/skopeo)
