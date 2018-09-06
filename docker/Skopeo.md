@@ -1,6 +1,5 @@
 # Skopeo[![Build Status](https://travis-ci.org/containers/skopeo.svg?branch=master)](https://travis-ci.org/containers/skopeo)
-=
-<img src="https://raw.githubusercontent.com/mclitao/openshift/master/docker/Skopeo.svg" width="250">
+
 ----
 
 
