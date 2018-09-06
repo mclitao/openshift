@@ -1,16 +1,18 @@
-#OpenShift Origin v3.9 CLI @ **mclitao**学习笔记
+OpenShift Origin v3.9
+**mclitao**学习笔记
 >官方手册[mclitao](https://docs.openshift.com/container-platform/3.9/welcome/index.html)
 >说明：本手册包含，项目、权限、资源分配、等运维备份命令，用来速查CLI的。
->方便查询使用,谁总没事记着这些啊！
 
 ### 笔记目录
 
 - **特殊参数**
   - 
     **特殊参数**：
-    ```commandline
-    oc replace <font color='red'>**--force**</font>    **强制执行参数**
-    oc logs podsname <font color='yellow'>**--follow**</font> **日志跟随**
+    ```batch
+      强制执行参数
+    oc replace <font color='red'>**--force**</font>   
+      日志跟随
+    oc logs podsname <font color='yellow'>**--follow**</font> 
     ```
  
 - **基础操作命令**
