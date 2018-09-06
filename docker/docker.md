@@ -33,29 +33,23 @@
     |0|-h|给容器指定一个内部hostname|
     |0|--name|给容器一个外部名字|
     |0|-rm|容器运行退出时删除自己|
-
     |0|--privileged=true|<font color='red'>**__```特权模式```__**</font>|
     |0|--pid=host|让容器共享主机pid命名空间,在容器内部使用ps\|-ef命令能看到宿主机的程序pid|
     |0|--ipc=host|让容器共享主机ipc命名空间|
     |0|--restart=always|容器退出时总是重启并运行容器,无限次数的尝试|
-    
     |0|--restart=no|退出后不在启动容器，默认的状态。|
     |0|--restart=on-failure|非正常退出非0，才会重新启动容器|
     |0|--restart=on-failure:3|非正常退出，只重试重启动三次。|
     |0|--restart=unless-stopped|在容器退出时重启容器，docker守护启时已经停止的除外。就是不自启动。|
     |0|--volumes-from|让运行的容器引用一个持久卷使用|
-    
     |0|--net=host|使用宿主机全部网路接口|
     |0|--net=none|不使用网络|
     |0|--net=container|多容器公用ip地址|
     |0|--net=bridge|docker默认模式，网桥模式|
-    
     |0|--link|链接2个容器之间网络|
     |0|--expose|开放一个或一组端口|
     |0|--dns|给容器制定一个dns服务器,默认和宿主一致|
-
     |0|--env-file|以文件方式引入一度ENV变量给容器|
-    
     |0|--entrypoint bash|进入容器手动调试，组织默认的命令执行|
     |0|-m|指定可以使用的最大内存|
     |0|--memory-swap|指定内存转换分区大小|同上|
