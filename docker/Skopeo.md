@@ -1,8 +1,5 @@
 # Skopeo[![Build Status](https://travis-ci.org/containers/skopeo.svg?branch=master)](https://travis-ci.org/containers/skopeo)
 
-----
-
-
 ## Skopeo的使用
 > 来自[skope](https://github.com/containers/skopeo)
 
