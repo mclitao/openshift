@@ -59,7 +59,7 @@
     |0|--cpuset-cpus="1,3"|指定1和3核心给这个容器|
   
 - **基础命令**
-  -   
+  - 
     ```
       查看最后一个启动的容器
     # docker ps -l
@@ -136,9 +136,7 @@
     # docker cp 4052fa46c9a9:/spice-html5 /root/spice-html5.tar.gz
       考入容器
     # docker cp spice-html5.tar.gz 4052fa46c9a9:/
-    
-    
-    
+   
       修改你要的景象名字为<ip:5000>/imagename:版本
     # docker tag dperson/samba:latest 172.16.5.8:5000/dperson/samba:latest 
       发布docker镜像 到目标服务器  
@@ -154,13 +152,69 @@
     # docker import http://example.com/example.tgz example/imagerepo
     ```
 
-  - 2
-  - 3
-  - 4
-- **特殊命令**
-  - 1
-  - 2
-  
+- **镜像加速器**
+  - 
+    <font color='red'>**docker镜像加速**</font>
+    ```batch
+      请使用你自己的阿里加速源 
+    # sudo tee /etc/docker/daemon.json <<-'EOF'
+    { 
+      "registry-mirrors": ["https://npf9aw3v.mirror.aliyuncs.com"]
+    }
+    EOF
+    # sudo systemctl daemon-reload 
+    # sudo systemctl restart docker
+    ```
+- **清除<none>悬挂镜像**
+  - 
+    <font color='red'>**清除镜像垃圾**</font>
+    ```batch
+      docker版本到1.13.1
+      这个命令将清理整个系统，并且只会保留真正在使用的镜像，容器，数据卷以及网络。 
+      使用这条命令会带来一些风险： 比如一些备用镜像(用于备份，回滚等)有时候需要用到，如果这些镜像被删除了，则运行容器时需要重新下载。
+    # docker system prune -a
+    ```
+- **强制全部删除容器**
+  - 
+    >> 1.# docker rm -f  $(docker ps -qa) 
+    >> 2.# docker rmi <镜像名>
+    >>.3.# docker rm -f  $(docker ps -qa)
+ 
+- **进入目标容器的cli交互模式**
+  - 
+    ```batch
+    # docker run -it <image name> /bin/bash    
+    # docker run -it <image name> /bin/sh 
+    ```
+- **Docker Volume信息持久卷**
+  - 
+    ```batch
+      查看
+    # docker volume ls
+    # docker volume ls -q
+      建立一个持久卷vol1
+    # docker volume create --name vol1
+      删除持久卷
+    # docker volume rm $(docker volume ls -qf dangling=true)
+    ```
+- **配置docker使用限制 容器日志大小等设置**
+  - 
+    ```batch
+    # cat /etc/sysconfig/docker
+    OPTIONS=' --selinux-enabled --insecure-registry=172.30.0.0/16 --log-driver=json-file --log-opt max-size=50m --signature-verification=false'
+    OPTIONS=' --selinux-enabled --selinux-enabled --log-driver=journald --insecure-registry=172.30.0.0/16 --log-driver=json-file --log-opt max-size=50m --signature-verification=false'
+    ```
+- **编译镜像方法**
+  - 
+    ```batch
+    # docker build -t dashboardl5:0.1 /root/xCloud/dashboard/
+    # docker build -t litao/dashboardl5:0.3 /root/xCloud/dashboard/
+    # docker build -t <仓库名>/<镜像名>:<版本>  /root/xCloud/dashboard/
+    ```
+
+
+
+
 
 
 ####md文件的参考例子：
@@ -172,66 +226,6 @@
 
 
 
-
-<font color='red'>**清除镜像垃圾**</font>
-```batch
-  docker版本到1.13.1
-  这个命令将清理整个系统，并且只会保留真正在使用的镜像，容器，数据卷以及网络。 
-  使用这条命令会带来一些风险： 比如一些备用镜像(用于备份，回滚等)有时候需要用到，如果这些镜像被删除了，则运行容器时需要重新下载。
-# docker system prune -a
-```
-
-* <font color='red'>**强制全部删除容器**</font>
->> 1.# docker rm -f  $(docker ps -qa) 
->> 2.# docker rmi <镜像名>
->>.3.# docker rm -f  $(docker ps -qa)
- 
- 
-<font color='red'>**进入目标容器的cli交互模式**</font>
-```batch
-# docker run -it <image name> /bin/bash    
-# docker run -it <image name> /bin/sh 
-```
-
-<font color='red'>**Docker Volume信息持久卷**</font>
-```batch
-  查看
-# docker volume ls
-# docker volume ls -q
-  建立一个持久卷vol1
-# docker volume create --name vol1
-  删除持久卷
-# docker volume rm $(docker volume ls -qf dangling=true)
-```
-
-<font color='red'>**docker镜像加速**</font>
-```batch
-  请使用你自己的阿里加速源 
-# sudo tee /etc/docker/daemon.json <<-'EOF'
-{ 
-  "registry-mirrors": ["https://npf9aw3v.mirror.aliyuncs.com"]
-}
-EOF
-# sudo systemctl daemon-reload 
-# sudo systemctl restart docker
-```
-
-
-
-<font color='red'>**配置docker使用限制 容器日志大小等设置**</font>
-```batch
-# cat /etc/sysconfig/docker
-OPTIONS=' --selinux-enabled --insecure-registry=172.30.0.0/16 --log-driver=json-file --log-opt max-size=50m --signature-verification=false'
-OPTIONS=' --selinux-enabled --selinux-enabled --log-driver=journald --insecure-registry=172.30.0.0/16 --log-driver=json-file --log-opt max-size=50m --signature-verification=false'
-```
-
-
-
-
-编译镜像
-# docker build -t dashboardl5:0.1 /root/xCloud/dashboard/
-# docker build -t litao/dashboardl5:0.3 /root/xCloud/dashboard/
-# docker build -t <仓库名>/<镜像名>:<版本>  /root/xCloud/dashboard/
   
   保存对容器的修改为新的镜像  
   -a, --author="Author" 
