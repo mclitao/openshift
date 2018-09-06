@@ -63,8 +63,7 @@
     |0|--cpu-period=100000|
     |0|--cpu-quota=200000|
     |0|--cpuset-cpus="1,3"|指定1和3核心给这个容器|
-     
-  - <font color='red'>**__```特权模式：```__**</font> --privileged=true
+  
 - **基础命令**
   -   
     ```
