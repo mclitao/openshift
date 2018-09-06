@@ -32,7 +32,7 @@
     |0|-p|指定一个容器端口到主机端口|-p|8080:8080|
     |0|-rm|容器运行退出时删除自己|
     |0|-h|给容器指定一个内部hostname|
-    |0|--privileged=true|<font color='red'>**__特权模式__**</font>|
+    |0|--privileged=true|```<font color='red'>**__特权模式__**</font>```|
     |0|--pid=host|让容器共享主机pid命名空间,在容器内部使用ps\|-ef命令能看到宿主机的程序pid|
     |0|--ipc=host|让容器共享主机ipc命名空间|
     |0|--restart=always|容器退出时总是重启并运行容器,无限次数的尝试|
