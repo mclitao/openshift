@@ -14,7 +14,10 @@
   - 
     |ID | 文件列表                              |     描述内容      |
     |:--|:--------------------------------------|:----------------- |
-    | 0 |/usr/lib/systemd/system/docker.service | 服务文件位置      |
+    | 0 |/hadoop/module/jdk1.8 | java环境版本1.8|
+    | 1 |/hadoop/module/hadoop-2.7.6/cor-site.xml|hadoop的核心配置文件|
+    | 2 |/hadoop/module/hadoop-2.7.6/hadoop-env.sh|hadoop的环境变量脚本|
+    | 3 |/hadoop/module/hadoop-2.7.6/hdfs-site.xml|hdfs服务的核心配置文件|
 
 - **Hadoop参数表**
    - 
@@ -66,13 +69,13 @@
         # mv /hadoop/module/jdk1.8.0_171 /hadoop/module/jdk1.8
             设置JAVA_HOME  
         # vi /etc/profile
-            export  JAVA_HOME=/opt/module/jdk1.8
+            export  JAVA_HOME=/hadoop/module/jdk1.8
             export  PATH=$PATH:$JAVA_HOME/bin:$JAVA_HOME/sbin
             source  /etc/profile
         # 向其他节点复制jdk
-        # scp -r /opt/module/jdk1.8 root@node22:`pwd`
-        # scp -r /opt/module/jdk1.8 root@node23:`pwd`
-        # scp -r /opt/module/jdk1.8 root@node24:`pwd`
+        # scp -r /hadoop/module/jdk1.8 root@node22:`pwd`
+        # scp -r /hadoop/module/jdk1.8 root@node23:`pwd`
+        # scp -r /hadoop/module/jdk1.8 root@node24:`pwd`
         # scp /etc/profile root@node22:/etc/
         # scp /etc/profile root@node23:/etc/
         # scp /etc/profile root@node24:/etc/
