@@ -6,7 +6,7 @@
 
 
 ## Hadoop学习笔记
-> 来自[mclitao](https://www.xxx.cn/)[学习笔记](http://xxxxx.cn/)的学习内容
+> 来自[mclitao](https://www.xxx.cn/)[学习笔记](http://xxxxx.cn/)的内容
 
 ### 笔记目录
 
@@ -32,7 +32,7 @@
     |2|node3|192.168.100.23|NodeManager|
     |3|node4|192.168.100.24|NodeManager|
    
-    <h6>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h6>    
+    ><h6>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h6>    
 
 - **Hadoop的部署**
   - 
@@ -121,7 +121,7 @@
         # scp -r hadoop-2.7.6/ admin@node23:`pwd`
         # scp -r hadoop-2.7.6/ admin@node24:`pwd`
         
-    第二步：启动hadoop集群并初始化：
+    第三步：启动hadoop集群并初始化：
             如果集群是第一次启动，需要格式化namenode
         # hdfs namenode -format
             启动hdfs
