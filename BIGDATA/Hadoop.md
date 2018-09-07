@@ -25,7 +25,7 @@
    
 - **Hadoop集群节点服务列表**
    - 
-    <h1>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h1>
+    <h6>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h6>
    -
     |ID | NAME | IP |  Node Type      |
     |:--|:-----|:-----|:--------------|
