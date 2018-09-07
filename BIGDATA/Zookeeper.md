@@ -18,15 +18,16 @@
     |1|下载地址|http://mirror.bit.edu.cn/apache/zookeeper/|
 
 - **Zookeeper的三种角色**
-   ><H6>Leader</H6>
+   -
+   ><h6>Leader</h6>
     ```
     领导的意思，负责指挥，不敢具体工作，在同一时间内只能存在一个Leader。只有一个Nimbus。
     ```
-   ><H6>Observer </H6>
+   ><h6>Observer </h6>
     ```
     监工，中层领导。
     ```
-   ><H6>Follower </H6>
+   ><h6>Follower </h6>
     ```
     随从，负责具体执行的。
     ```
