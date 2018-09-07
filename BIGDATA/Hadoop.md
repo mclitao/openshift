@@ -23,8 +23,8 @@
    - 
     |ID | 参数 |     描述内容      |
     |:--|:-----|:----------------- |
-    |0|-i|交互|
-    |1|-t|分配一个ttyz终端|terminal|
+    |0|||
+    |1|||
    
 - **Hadoop集群节点服务列表**
    -
@@ -258,7 +258,7 @@
       ```
 - **3.hdfs系统检查工具fsck**
   - 
-      ```
+    ```
     # hdfs fsck <path> -move    移动受损文件到/lost+found
     # hdfs fsck <path> -delete   删除受损文件。
     # hdfs fsck <path> -openforwrite   打印出写打开的文件。
@@ -266,11 +266,11 @@
     # hdfs fsck <path> -blocks     打印出块信息报告。
     # hdfs fsck <path> -locations     打印出每个块的位置信息。
     # hdfs fsck <path> -racks    打印出data-node的网络拓扑结构。
-      ```
+    ```
 
 - **4.运行pipies作业**
   - 
-      ```
+    ```
     # hdfs pipes -conf <path> 作业的配置
     # hdfs pipes -jobconf <key=value>, <key=value>, ...  增加/覆盖作业的配置项
     # hdfs pipes -input <path>  输入目录
@@ -283,9 +283,5 @@
     # hdfs pipes -writer <class> Java RecordWriter
     # hdfs pipes -program <executable> 可执行程序的URI
     # hdfs pipes -reduces <num> reduce个数
-      ```
+    ```
    
-- **5.**
-  - 
-      ```
-      ```
