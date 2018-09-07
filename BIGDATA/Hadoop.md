@@ -1,4 +1,4 @@
-<img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/Hadoop.jpg?raw=true" alt="" width="600"/>
+<img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/Hadoop.jpg?raw=true" alt="" width="300"/>
 
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
@@ -24,14 +24,14 @@
     |1|-t|分配一个ttyz终端|terminal|
    
 - **Hadoop集群节点服务列表**
-   - 
+   - 注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。 
     |ID | NAME | IP |  Node Type      |
     |:--|:-----|:-----|:--------------|
     |0|node1|192.168.100.21|NameNode\SecondaryNameNode\ResourceManager|
     |1|node2|192.168.100.22|NodeManager|
     |2|node3|192.168.100.23|NodeManager|
     |3|node4|192.168.100.24|NodeManager|
-    注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。
+    
 
 - **Hadoop的部署**
   - 
