@@ -18,14 +18,18 @@
     | 1 |/hadoop/module/hadoop-2.7.6/cor-site.xml|hadoop的核心配置文件|
     | 2 |/hadoop/module/hadoop-2.7.6/hadoop-env.sh|hadoop的环境变量脚本|
     | 3 |/hadoop/module/hadoop-2.7.6/hdfs-site.xml|hdfs服务的核心配置文件|
+    | 4 |/hadoop/module/hadoop-2.7.6/mapred-site.xml|MapReducce服务的核心配置文件|
+    | 5 |/hadoop/module/hadoop-2.7.6/saves|Slaves数据节点的配置文件|
+    | 6 |/hadoop/module/hadoop-2.7.6/yarn-site|yarn服务的核心的配置文件|
 
-- **Hadoop参数表**
+- **Zookeeper集群**
    - 
-    |ID | 参数 |     描述内容      |
+    |ID | Name |   Description     |
     |:--|:-----|:----------------- |
-    |0|||
-    |1|||
-   
+    |0|官网地址|https://zookeeper.apache.org/|
+    |1|下载地址|http://mirror.bit.edu.cn/apache/zookeeper/|
+    |2|部署笔记|https://github.com/mclitao/openshift/blob/master/BIGDATA/Zookeeper.md|
+
 - **Hadoop集群节点服务列表**
    -
     |ID | NAME | IP |  Node Type      |
