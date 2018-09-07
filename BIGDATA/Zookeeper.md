@@ -1,4 +1,4 @@
-<img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/Hadoop.jpg?raw=true" alt="" width="300"/>
+<img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/zookeeper.jpg?raw=true" alt="" width="300"/>
 
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
