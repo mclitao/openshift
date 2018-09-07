@@ -25,15 +25,12 @@
    
 - **Hadoop集群节点服务列表**
    - 
-    |ID | 参数 |     描述内容      |
-    |:--|:-----|:----------------- |
-    |0|-i|交互|
-    |1|-t|分配一个ttyz终端|terminal|
-      
-    |ID | 参数 |     描述内容      |
-    |:--|:-----|:----------------- |   
-    |id| ip |name|description|
-    |:-|:--|:---|:---------|:----|
+    |ID | name | ip |   描述内容      |
+    |:--|:-----|:-----|:----------------- |
+    |0|node1|192.168.100.21|NodeManager|
+    |1|node2|192.168.100.22|NodeManager|
+    |2|node3|192.168.100.23|NodeManager|
+    |3|node4|192.168.100.24|NodeManager|
     | 0| 192.168.100.21 |ndoe1|NameNode\SecondaryNameNode\ResourceManager|
     | 1| 192.168.100.22 |ndoe2|NodeManager|
     | 2| 192.168.100.23 |ndoe3|NodeManager|
