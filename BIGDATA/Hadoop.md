@@ -25,16 +25,12 @@
    
 - **Hadoop集群节点服务列表**
    - 
-    |ID | name | ip |   描述内容      |
-    |:--|:-----|:-----|:----------------- |
-    |0|node1|192.168.100.21|NodeManager|
+    |ID | NAME | IP |  Node Type      |
+    |:--|:-----|:-----|:--------------|
+    |0|node1|192.168.100.21|NameNode\SecondaryNameNode\ResourceManager|
     |1|node2|192.168.100.22|NodeManager|
     |2|node3|192.168.100.23|NodeManager|
     |3|node4|192.168.100.24|NodeManager|
-    | 0| 192.168.100.21 |ndoe1|NameNode\SecondaryNameNode\ResourceManager|
-    | 1| 192.168.100.22 |ndoe2|NodeManager|
-    | 2| 192.168.100.23 |ndoe3|NodeManager|
-    | 3| 192.168.100.23 |ndoe4|NodeManager|
     注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。
 
 - **Hadoop的部署**
