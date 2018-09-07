@@ -26,7 +26,7 @@
 - **Hadoop集群节点服务列表**
    - 
     |id| ip |name|description|
-    |:-|:--|:---|:---------|：----|
+    |:-|:--|:---|:---------|:----|
     | 0| 192.168.100.21 |ndoe1|NameNode\SecondaryNameNode\ResourceManager|
     | 1| 192.168.100.22 |ndoe2|NodeManager|
     | 2| 192.168.100.23 |ndoe3|NodeManager|
