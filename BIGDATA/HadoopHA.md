@@ -9,7 +9,7 @@
 > 来自[mclitao](https://www.xxx.cn/)[学习笔记](http://xxxxx.cn/)的内容
 
 ### 笔记目录
-  -Hadoop官方HA地址：
+  - Hadoop官方HA地址：
     >http://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HDFSHighAvailabilityWithNFS.html
 
 - **Hadoop配置文件表**
