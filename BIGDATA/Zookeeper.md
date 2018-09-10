@@ -8,6 +8,12 @@
 ## Zookeeper学习笔记
 > 来自[mclitao](https://www.xxx.cn/)[学习笔记](http://xxxxx.cn/)的内容
 
+<h5>ZooKeeper 是一个开源的分布式协调服务，由雅虎创建，是 Google Chubby 的开源实现。
+    分布式应用程序可以基于 ZooKeeper 实现：
+            数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。
+            典型场景：基于ZAB算法实现决绝分布式环境中数据一致性。
+</h5>
+
 ### 笔记目录
 
 - **Zookeeper资料**
@@ -42,7 +48,7 @@
 - **Zookeeper搭建方法**
    -
     ```commandline
-
+    参考为知笔记
     ```
 - **基础服务命令**
   - 
