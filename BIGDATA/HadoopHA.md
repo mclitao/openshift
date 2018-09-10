@@ -47,9 +47,9 @@
 
 - **HadoopHA的转变流程图**
    -
-    <img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/HadoopHA.png?raw=true" alt="" width="300"/>
     这里有两个NameNode，一个处于active状态，一个处于standby状态。ActiveNamenode对外提供服务，而StandbyNamenode则不对外提供服务，仅同步active 
     namenode的状态，以便在故障时快速进行切换。hadoop2.0提供了两种HDFS HA的解决方案，NFS和QJM，这里我们使用QJM。在该方案中两个namenode间通过JournalNode同步元数据信息，一条数据只要写入JournalNode即认为写入成功。通常配置奇数个JournalNode，依靠zookeeper来协调。这里还配置了一个zookeeper集群，用于ZKFC故障转移。ResourceManager也是有一个Active，一个Standby，状态由zookeeper进行协调。
+    <img src="https://github.com/mclitao/openshift/blob/master/BIGDATA/HadoopHA.png?raw=true" alt="" width="300"/>
 
 - **Hadoop集群节点服务列表**
    -
