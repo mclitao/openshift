@@ -38,7 +38,7 @@
     |1|node2|192.168.100.22|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
     |2|node3|192.168.100.23|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
     |3|node4|192.168.100.24|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
-    |4|每台机器上有15个映射/化简任务|
+    |4|||每台机器上有15个映射/化简任务|
    
     ><h6>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h6>    
 - *针对不同场景Hadoop的硬件选择*
