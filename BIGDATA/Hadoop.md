@@ -35,12 +35,20 @@
     |ID | NAME | IP |  Node Type      |
     |:--|:-----|:-----|:--------------|
     |0|node1|192.168.100.21|NameNode<br>SecondaryNameNode<br>ResourceManager|
-    |1|node2|192.168.100.22|NodeManager|
-    |2|node3|192.168.100.23|NodeManager|
-    |3|node4|192.168.100.24|NodeManager|
+    |1|node2|192.168.100.22|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
+    |2|node3|192.168.100.23|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
+    |3|node4|192.168.100.24|NodeManager<br>存储:12TB CPU:8 Memory:32GB|
+    |4|每台机器上有15个映射/化简任务|
    
     ><h6>注意： 启动Yarn时Namenode和ResourceManger如果不是同一台机器，不能在NameNode上启动 yarn，应该在ResouceManager所在的机器上启动yarn。</h6>    
-
+- *针对不同场景Hadoop的硬件选择*
+   -
+    |ID | 场景|  配置      |
+    |:--|:-----|:--------------|
+    |1|轻量处理的配置(1U的机器）|两个16核的CPU，24-64GB的内存以及8张硬盘（每张1TB或者2TB)|
+    |2|负载均衡的配置(1U的机器）|两个16核的CPU，48-128GB的内存以及由主板控制器直接连接的12-16张硬盘（每张1TB或者2TB)。<br>通常在一个2U的柜子里使用2个主板和24张硬盘实现相互备份。|
+    |3|超大存储的配置(2U的机器）|两个16核的CPU，48-96GB的内存以及16-26张硬盘（每张2TB-4TB)。<br>这种配置在多个节点/机架失效时会产生大量的网络流量。|
+    |4|强力运算的配置(2U的机器）|两个16核的CPU，64-512GB的内存以及4-8张硬盘（每张1TB或者2TB)|
 - **Hadoop的部署**
   - 
     ```
@@ -67,8 +75,7 @@
         # rpm -e –nodeps
             安装jdk
         # cd /hadoop/software
-        # wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"  
-        http://download.oracle.com/otn/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz
+        # wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.tar.gz
         # tar zxvf  jdk-8u171-linux-x64.tar.gz  -C  /hadoop/module
         # mv /hadoop/module/jdk1.8.0_171 /hadoop/module/jdk1.8
             设置JAVA_HOME  
